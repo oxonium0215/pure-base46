@@ -15,6 +15,8 @@ local options = {
     changed_themes = {},
     transparency = false,
     theme_toggle = { "onedark", "one_light" },
+  },
+  ui = {
     cmp = {
       icons = true,
       lspkind_text = true,
