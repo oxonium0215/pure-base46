@@ -1,3 +1,4 @@
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 local M = {}
 local g = vim.g
 local opts = require("base46.utils").load_config().base46
@@ -72,7 +73,7 @@ M.extend_default_hl = function(highlights, integration_name)
     end
 
     -- transparency
-    if uiconfig.transparency or opts.transparency then
+    if opts.transparency then
         local glassy = require "base46.glassy"
 
         for key, value in pairs(glassy) do
