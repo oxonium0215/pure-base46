@@ -15,7 +15,33 @@ local options = {
     changed_themes = {},
     transparency = false,
     theme_toggle = { "onedark", "one_light" },
+    cmp = {
+      icons = true,
+      lspkind_text = true,
+      style = "default", -- default/flat_light/flat_dark/atom/atom_colored
+    },
+
+    telescope = { style = "borderless" }, -- borderless / bordered
+
+    statusline = {
+      theme = "default", -- default/vscode/vscode_colored/minimal
+      -- default/round/block/arrow separators work only for default statusline theme
+      -- round and block will work for minimal theme only
+      separator_style = "default",
+      order = nil,
+      modules = nil,
+    },
+
+    -- lazyload it when there are 1+ buffers
+    tabufline = {
+      enabled = true,
+      lazyload = true,
+      order = { "treeOffset", "buffers", "tabs", "btns" },
+      modules = nil,
+    },
   },
+  lsp = { signature = true },
+  mason = { cmd = true, pkgs = {} },
 }
 return options
 ]]
