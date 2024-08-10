@@ -1,7 +1,6 @@
 local M = {}
 local g = vim.g
-local uiconfig = require("base46-config").ui
-local opts = require("base46-config").base46
+local opts = require("base46.utils").load_config().base46
 local cache_path = vim.g.base46_cache
 
 local integrations = {
@@ -26,7 +25,7 @@ for _, value in ipairs(opts.integrations) do
 end
 
 M.get_theme_tb = function(type)
-    local name = uiconfig.theme or opts.theme
+    local name = opts.theme
     local present1, default_theme = pcall(require, "base46.themes." .. name)
     local present2, user_theme = pcall(require, "themes." .. name)
 
@@ -82,7 +81,7 @@ M.extend_default_hl = function(highlights, integration_name)
             end
         end
     end
-    local hl_override = uiconfig.hl_override or opts.hl_override
+    local hl_override = opts.hl_override
     local overriden_hl = M.turn_str_to_color(hl_override)
 
     for key, value in pairs(overriden_hl) do
@@ -176,13 +175,13 @@ end
     end
 
     M.override_theme = function(default_theme, theme_name)
-        local changed_themes = uiconfig.changed_themes or opts.changed_themes
+        local changed_themes = opts.changed_themes
         return M.merge_tb(default_theme, changed_themes.all or {}, changed_themes[theme_name] or {})
 end
 
 --------------------------- user functions ----------------------------------------------------------
 M.toggle_theme = function()
-    local themes = uiconfig.theme_toggle or opts.theme_toggle
+    local themes = opts.theme_toggle
 
     if opts.theme ~= themes[1] and opts.theme ~= themes[2] then
         vim.notify "Set your current theme to one of those mentioned in the theme_toggle table (base46-config)"
@@ -192,14 +191,10 @@ M.toggle_theme = function()
     g.icon_toggled = not g.icon_toggled
     g.toggle_theme_icon = g.icon_toggled and "   " or "   "
 
-    if uiconfig.theme ~= nil then
-        uiconfig.theme = (themes[1] == uiconfig.theme and themes[2]) or themes[1]
-    else
-        opts.theme = (themes[1] == opts.theme and themes[2]) or themes[1]
-    end
+    opts.theme = (themes[1] == opts.theme and themes[2]) or themes[1]
 
     local configfile = dofile(vim.fn.stdpath "config" .. "/lua/base46-config.lua")
-    local old_theme = (configfile.ui and configfile.ui.theme) or configfile.base46.theme
+    local old_theme = configfile.base46.theme
 
     require("base46.utils").replace_word('theme = "' .. old_theme, 'theme = "' .. opts.theme)
     M.load_all_highlights()
@@ -208,7 +203,6 @@ end
 M.toggle_transparency = function()
     opts.transparency = not opts.transparency
     M.load_all_highlights()
-
     local old = dofile(vim.fn.stdpath "config" .. "/lua/base46-config.lua").transparency
     local new = "transparency = " .. tostring(opts.transparency)
     require("base46.utils").replace_word("transparency = " .. tostring(old), new)

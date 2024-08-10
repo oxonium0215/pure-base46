@@ -6,21 +6,18 @@ M.load_config = function()
     if vim.fn.filereadable(config_path) == 0 then
         -- define default config
         local default_config = [[
-local M = {}
-
-M.ui = {
-    theme = "onedark",
-    transparency = false,
-    theme_toggle = {"onedark", "one_light"},
+local options = {
+  base46 = {
+    theme = "onedark", -- default theme
+    hl_add = {},
     hl_override = {},
-    changed_themes = {},
-}
-
-M.base46 = {
     integrations = {},
+    changed_themes = {},
+    transparency = false,
+    theme_toggle = { "onedark", "one_light" },
+  },
 }
-
-return M
+return options
 ]]
         local file = io.open(config_path, "w")
         if file then
