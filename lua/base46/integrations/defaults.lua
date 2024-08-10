@@ -248,8 +248,8 @@ local defaults = {
 
 -- merge statusline & hl_add tables!
 local merge_tb = require("base46").merge_tb
-local nvconfig = require "nvconfig"
-local user_new_highlights = nvconfig.ui.hl_add or nvconfig.base46.hl_add
+local base46_config = require "base46-config"
+local user_new_highlights = base46_config.base46.hl_add
 
 if user_new_highlights then
   local hexify_ColorStrs = require("base46").turn_str_to_color

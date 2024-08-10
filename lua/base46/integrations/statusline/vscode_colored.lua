@@ -1,4 +1,4 @@
-local config = require("nvconfig")
+local config = require("base46-config")
 local get_theme_tb = require("base46").get_theme_tb
 local theme_type = get_theme_tb "type"
 local colors = get_theme_tb "base_30"
