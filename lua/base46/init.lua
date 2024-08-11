@@ -5,6 +5,7 @@ local opts = require("base46.utils").load_config().base46
 local cache_path = vim.g.base46_cache
 
 local integrations = {
+    "alpha",
     "bufferline",
     "blankline",
     "cmp",
