@@ -112,7 +112,7 @@ M.set_cleanbuf_opts = function(ft)
   vim.g[ft .. "_displayed"] = true
 end
 
-M.setup_bufferline_icon = function()
+M.setup_bufferline_icons = function()
   local colors = require("base46").get_theme_tb "base_30"
   local icon_ok, webDevicons = pcall(require, "nvim-web-devicons")
   if not icon_ok then
