@@ -177,6 +177,10 @@ end
             dofile(vim.g.base46_cache .. "all")
         end
 
+        -- setup bufferline icon
+        if pcall(require, "bufferline") then
+            require("base46.utils").setup_bufferline_icon()
+        end
         -- update blankline
         pcall(function()
             require("ibl").update()

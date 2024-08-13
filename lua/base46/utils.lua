@@ -112,4 +112,34 @@ M.set_cleanbuf_opts = function(ft)
   vim.g[ft .. "_displayed"] = true
 end
 
+M.setup_bufferline_icon = function()
+  local colors = require("base46").get_theme_tb "base_30"
+  local icon_ok, webDevicons = pcall(require, "nvim-web-devicons")
+  if not icon_ok then
+    return
+  end
+  local filename = vim.fn.expand("%:t")
+  local ext = vim.fn.expand("%:e")
+  local _, icon_name = webDevicons.get_icon(filename, ext, { default = true })
+  local _, icon_color = webDevicons.get_icon_color(filename, ext, { default = true })
+  if not icon_name then
+    return
+  end
+  local iconSkeleton = {
+    ["BufferLine" .. icon_name .. "Selected"] = {
+      bg = colors.black,
+      fg = icon_color,
+    },
+    ["BufferLine" .. icon_name] = {
+      bg = colors.black2,
+      fg = icon_color,
+    },
+    ["BufferLine" .. icon_name .. "Inactive"] = {
+      bg = colors.black2,
+      fg = icon_color,
+    },
+  }
+  return iconSkeleton
+end
+
 return M
