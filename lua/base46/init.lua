@@ -179,7 +179,7 @@ end
 
         -- setup bufferline icon
         if pcall(require, "bufferline") then
-            local bufferline_icon_hl_tbl = require("base46.utils").setup_bufferline_icon()
+            local bufferline_icon_hl_tbl = require("base46.utils").setup_bufferline_icons()
             for hlgroup, colors in pairs(bufferline_icon_hl_tbl) do
                 vim.api.nvim_set_hl(0, hlgroup, colors)
             end
